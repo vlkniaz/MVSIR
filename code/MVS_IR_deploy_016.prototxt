@@ -1,0 +1,166 @@
+name: "train-MVS_IR_016"
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  include {
+    phase: TEST
+  }
+  transform_param {
+    scale: 0.0039215684
+  }
+  input_param {
+    shape { dim: 1 dim: 1 dim: 28 dim: 28 }
+  }
+}
+# --------- encoding part ---------
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param
+  {
+     lr_mult: 1
+     decay_mult: 3
+  }
+  convolution_param {
+    num_output: 8
+    kernel_size: 4
+    stride: 2
+    weight_filler { type: "xavier" }
+    bias_filler { type: "constant" }
+  }
+}
+layer {
+  name: "sig1en"
+  type: "Sigmoid"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "conv2"
+  param
+  {
+     lr_mult: 1
+     decay_mult: 3
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 4
+    stride: 2
+    weight_filler { type: "xavier" }
+    bias_filler { type: "constant" }
+  }
+}
+layer {
+  name: "sig2en"
+  type: "Sigmoid"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "ip1encode"
+  type: "InnerProduct"
+  bottom: "conv2"
+  top: "ip1encode"
+  param
+  {
+     lr_mult: 1
+     decay_mult: 3
+  }
+  inner_product_param {
+    # number of elements in feature vector
+    num_output: 64
+    weight_filler { type: "gaussian" std: 0.1}
+    bias_filler { type: "constant" }
+  }
+}
+layer {
+  name: "sig3en"
+  type: "Sigmoid"
+  bottom: "ip1encode"
+  top: "ip1encode"
+}
+layer {
+  name: "reshape"
+  type: "Reshape"
+  bottom: "ip1encode"
+  top: "ip1decodesh"
+  reshape_param
+  { shape {
+    dim: 1
+    dim: 64
+    dim: 1
+    dim: 1
+  } }
+}
+# decoding part
+layer {
+  name: "deconv2"
+  type: "Deconvolution"
+  bottom: "ip1decodesh"
+  top: "deconv2"
+  param
+  {
+     lr_mult: 1
+     decay_mult: 3
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 5
+    stride: 2
+    weight_filler { type: "xavier" }
+    bias_filler { type: "constant" }
+  }
+}
+layer {
+  name: "sig2de"
+  type: "Sigmoid"
+  bottom: "deconv2"
+  top: "deconv2"
+}
+layer {
+  name: "deconv1"
+  type: "Deconvolution"
+  bottom: "deconv2"
+  top: "deconv1"
+  param
+  {
+     lr_mult: 1
+     decay_mult: 3
+  }
+  convolution_param {
+    num_output: 1
+    kernel_size: 8
+    stride: 5
+    weight_filler { type: "xavier" }
+    bias_filler { type: "constant" }
+  }
+}
+# --------- calculate loss ---------
+layer {
+  name: "loss"
+  type: "SigmoidCrossEntropyLoss"
+  bottom: "deconv1"
+  bottom: "data"
+  top: "cross_entropy_loss"
+  loss_weight: 1.0
+}
+layer {
+  name: "deconv1neursig"
+  type: "Sigmoid"
+  bottom: "deconv1"
+  top: "deconv1neursig"
+}
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "deconv1neursig"
+  bottom: "data"
+  top: "l2_error"
+  loss_weight: 0.0
+}
