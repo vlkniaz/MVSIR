@@ -1,6 +1,6 @@
 # MVSIR
 Multi-view stereo infrared dataset.
-URL: https://gator4110.hostgator.com:2083/cpsess7134799553/frontend/hostgator/filemanager/showfile.html?file=MVSIR.rar&fileop=&dir=%2Fhome4%2Fcosmos%2Fpublic_html%2Fzefir%2Fdatasets&dirop=&charset=&file_charset=&baseurl=&basedir=
+URL: http://zefirus.org/datasets/MVSIR.zip
 
 ## 3D models
 3D models of three test objects used in the MVSIR dataset in Stanford .PLY format can be found in the `models` folder.
