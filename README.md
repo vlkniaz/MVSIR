@@ -21,14 +21,10 @@ URL: http://zefirus.org/datasets/MVSIR.zip
 
 <p>If you use this code for your research, please cite our paper: <a href="http://openaccess.thecvf.com/content_ICCV_2017_workshops/w31/html/Knyaz_Deep_Learning_of_ICCV_2017_paper.html">Deep Learning of Convolutional Auto-Encoder for Image Matching and 3D Object Reconstruction in the Infrared Range</a></p>
 
-<pre>
-<code>
-@InProceedings{Knyaz_2017_ICCV,
+<pre><code>@InProceedings{Knyaz_2017_ICCV,
 author = {Knyaz, Vladimir A. and Vygolov, Oleg and Kniaz, Vladimir V. and Vizilter, Yury and Gorbatsevich, Vladimir and Luhmann, Thomas and Conen, Niklas},
 title = {Deep Learning of Convolutional Auto-Encoder for Image Matching and 3D Object Reconstruction in the Infrared Range},
 booktitle = {The IEEE International Conference on Computer Vision (ICCV)},
 month = {Oct},
 year = {2017}
-}
-</code>
-</pre>
+}</code></pre>
