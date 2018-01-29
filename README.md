@@ -16,3 +16,19 @@ URL: http://zefirus.org/datasets/MVSIR.zip
 1. Copy `code` directory to `~\path-to-caffe\examples\`
 2. Create an LMDB with 28x28 grayscale images and specify the path in `MVS_IR_016.prototxt`
 3. Use `MVS_IR_016.sh` to train the network
+
+## Citation
+
+<p>If you use this code for your research, please cite our paper: <a href="http://openaccess.thecvf.com/content_ICCV_2017_workshops/w31/html/Knyaz_Deep_Learning_of_ICCV_2017_paper.html">Deep Learning of Convolutional Auto-Encoder for Image Matching and 3D Object Reconstruction in the Infrared Range</a></p>
+
+<pre>
+<code>
+@InProceedings{Knyaz_2017_ICCV,
+author = {Knyaz, Vladimir A. and Vygolov, Oleg and Kniaz, Vladimir V. and Vizilter, Yury and Gorbatsevich, Vladimir and Luhmann, Thomas and Conen, Niklas},
+title = {Deep Learning of Convolutional Auto-Encoder for Image Matching and 3D Object Reconstruction in the Infrared Range},
+booktitle = {The IEEE International Conference on Computer Vision (ICCV)},
+month = {Oct},
+year = {2017}
+}
+</code>
+</pre>
